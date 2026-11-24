@@ -4,6 +4,8 @@
 
 接杯水、去洗手间、取打印件，或临时去会议室。DeskLock 用 Apple Watch 或已配对的 iPhone 检测离开，由 macOS 锁定屏幕。
 
+![办公室场景示意，包括接水、去洗手间、取打印件、临时讨论、去开会和投屏](./images/office-scenes.webp)
+
 | 什么时候 | DeskLock 怎么帮 |
 |---|---|
 | 去接水、去洗手间，手机还在桌上 | 戴 Apple Watch 走开，检测到离开后请求 Mac 自动锁屏。 |
