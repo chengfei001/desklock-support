@@ -2,7 +2,7 @@
 
 [简体中文](https://chengfei001.github.io/desklock-support/support.html#zh-Hans) · [繁體中文](https://chengfei001.github.io/desklock-support/support.html#zh-Hant) · [English](https://chengfei001.github.io/desklock-support/support.html#en) · [日本語](https://chengfei001.github.io/desklock-support/support.html#ja) · [Deutsch](https://chengfei001.github.io/desklock-support/support.html#de) · [한국어](https://chengfei001.github.io/desklock-support/support.html#ko) · [Español (España)](https://chengfei001.github.io/desklock-support/support.html#es-ES) · [Español (México)](https://chengfei001.github.io/desklock-support/support.html#es-MX)
 
-接杯水、去洗手间、取打印件，或临时去会议室。DeskLock 用 Apple Watch 或已配对的 iPhone 检测离开，由 macOS 锁定屏幕。
+接杯水、去洗手间、取打印件，或临时去会议室。戴着 Apple Watch 或带上 iPhone，离开座位时 Mac 会自动锁屏。
 
 ![办公室场景示意，包括接水、去洗手间、取打印件、临时讨论、去开会和投屏](./images/office-scenes.webp)
 
@@ -22,7 +22,7 @@
 
 ## Step away from your Mac
 
-A restroom break, a water refill, or a quick meeting can leave your work visible. DeskLock asks macOS to lock when it detects your configured watch or phone moving away. If you find the Mac still unlocked, you can also tap **Lock Mac** from a paired iPhone or Apple Watch while the connection is available. The watch relays through the paired iPhone.
+A restroom break, a water refill, or a quick meeting can leave your work visible. Wear your Apple Watch or take your iPhone with you, and your Mac locks automatically when you step away. If you find the Mac still unlocked, you can also tap **Lock Mac** from a paired iPhone or Apple Watch while the connection is available. The watch relays through the paired iPhone.
 
 [免费下载 Mac 版 · Free Mac download](./DeskLock-1.0.0-35-macOS-notarized.zip) · [完整产品说明与截图 · Product guide and screenshots](https://chengfei001.github.io/desklock-support/support.html) · [隐私政策 · Privacy policy](https://chengfei001.github.io/desklock-support/privacy.html)
 
