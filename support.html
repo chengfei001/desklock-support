@@ -1,67 +1,249 @@
-<!doctype html>
-<html lang="zh-Hans">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DeskLock · 使用帮助</title>
+<!doctype html><html lang="zh-Hans"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DeskLock · 离开电脑时，让 Mac 自动锁屏</title>
+<meta name="description" content="DeskLock 用 Apple Watch 或 iPhone 检测离开，自动锁定 Mac。查看接水、洗手间、开会与手动锁屏的真实界面。">
 <style>
-:root {color-scheme:light dark;--paper:#faf8fe;--ink:#29223a;--accent:#56399a;--line:#ddd6e8}
-@media(prefers-color-scheme:dark){:root{--paper:#252134;--ink:#f1ecf8;--accent:#d8c6ff;--line:#504662}}
-body{font:1rem/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;color:var(--ink);background:var(--paper)}
-header,main{width:min(100% - 2.5rem,46rem);margin:auto}
-header{padding:2rem 0 1rem;border-bottom:1px solid var(--line)}
-.brand{font-size:1.5rem;font-weight:700}
-nav{display:flex;gap:.35rem .95rem;flex-wrap:wrap;margin-top:.75rem}
-a{color:var(--accent);text-underline-offset:.19em}
-a[aria-current]{font-weight:700}
-aside{border-left:3px solid var(--accent);padding-left:.8rem;margin-block:1rem}
-main{padding:1rem 0 3rem}
-h1{font-size:clamp(1.85rem,6vw,2.5rem);line-height:1.23}
-p{overflow-wrap:anywhere}
-</style>
-</head>
-<body>
-<header><div class="brand">DeskLock</div>
-<nav aria-label="语言 / Language"><a href="#zh-Hans" lang="zh-Hans">简体中文</a>
+:root{color-scheme:light;--paper:#f8f7fc;--panel:#fff;--line:#ded9eb;--ink:#262039;--muted:#59516b;--accent:#523794;--hero:#242033;--on-hero:#fff;--hero-muted:#e3dbf1}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--paper:#1e1b2b;--panel:#282437;--line:#4b405e;--ink:#f5efff;--muted:#d7cce8;--accent:#d4beff;--hero:#2b233c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:1rem/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header,main,footer{width:min(100% - 2rem,68rem);margin-inline:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.35rem 0}
+.brand{font-size:1.3rem;font-weight:775;white-space:nowrap}
+nav{display:flex;flex-wrap:wrap;gap:.24rem .45rem}
+a{color:var(--accent);text-underline-offset:.18em}
+nav a{border-radius:.5rem;padding:.2rem .53rem;text-decoration:none;color:var(--muted);font-size:.82rem}
+nav a[aria-current]{background:var(--panel);color:var(--accent);font-weight:750;box-shadow:inset 0 0 0 1px var(--line)}
+.hero{display:grid;grid-template-columns:1.16fr 1fr;gap:clamp(1rem,5vw,3.4rem);align-items:center;padding:clamp(1.4rem,5vw,3.4rem);border-radius:1.45rem;background:linear-gradient(135deg,var(--hero),#3c3358);color:var(--on-hero)}
+h1,h2,h3{line-height:1.24;margin:0 0 .65em;text-wrap:balance}
+h1{font-size:clamp(2.05rem,4.4vw,3.35rem);letter-spacing:-.035em}
+h2{font-size:clamp(1.55rem,3.1vw,2.25rem);letter-spacing:-.02em}
+h3{font-size:1.14rem;margin-bottom:.35em}
+p{margin:.55rem 0;overflow-wrap:anywhere}
+.hero p,.hero figcaption{color:var(--hero-muted)}
+.hero .download{display:inline-block;color:#2b194a;background:#e0d1ff;padding:.56rem .95rem;margin-top:.85rem;border-radius:.63rem;font-weight:750;text-decoration:none}
+.availability,.note,figcaption{font-size:.875rem;color:var(--muted)}
+.area{margin-block:clamp(2rem,6vw,4rem)}
+.scene-grid{display:grid;gap:.9rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+article,.meeting,.companion,.setup{background:var(--panel);border:1px solid var(--line);border-radius:1rem;padding:clamp(1rem,2.8vw,1.8rem)}
+article p{color:var(--muted)}
+.split{display:grid;grid-template-columns:1.12fr 1fr;gap:clamp(1rem,4vw,3rem);align-items:center}
+.meeting{margin-top:.9rem}
+figure{margin:0 auto;width:100%;text-align:center;min-width:0}
+img{display:block;margin:0 auto;width:100%;height:auto;object-fit:contain;border-radius:.8rem}
+figure.mac{max-width:29rem}
+figure.phone{max-width:13.5rem}
+figure.watch{max-width:11.25rem}
+figcaption{margin-top:.5rem;line-height:1.45}
+.controls{display:grid;grid-template-columns:1.12fr 1fr;gap:.68rem;align-items:center}
+.setup{grid-template-columns:1.6fr 1fr}
+footer{border-top:1px solid var(--line);color:var(--muted);padding:1.05rem 0 2rem;font-size:.86rem}
+@media(max-width:48rem){header{align-items:flex-start;flex-direction:column;gap:.4rem}.hero,.split{grid-template-columns:1fr}.hero .mac,.meeting .mac{max-width:23rem}}
+@media(max-width:34rem){.scene-grid{grid-template-columns:1fr}}
+</style></head><body>
+<header><div class="brand">DeskLock</div><nav aria-label="语言 / Language"><a href="#zh-Hans" lang="zh-Hans">简体中文</a>
 <a href="#zh-Hant" lang="zh-Hant">繁體中文</a>
 <a href="#en" lang="en">English</a>
 <a href="#ja" lang="ja">日本語</a>
 <a href="#de" lang="de">Deutsch</a>
 <a href="#ko" lang="ko">한국어</a>
 <a href="#es-ES" lang="es-ES">Español (España)</a>
-<a href="#es-MX" lang="es-MX">Español (México)</a></nav>
-<nav aria-label="DeskLock"><a href="./support.html">Support / 使用帮助</a><a href="./privacy.html">Privacy / 隐私政策</a><a href="./DeskLock-1.0.0-35-macOS-notarized.zip">Download for Mac / Mac 下载</a></nav><p>Developer / 开发者 · Fei Cheng（成飞）</p></header>
-<main><section id="zh-Hans" lang="zh-Hans"><h1>使用帮助</h1>
-<p>在 Mac 打开 DeskLock，允许蓝牙并选择你的 Apple Watch。到「锁屏」允许辅助功能权限，保存工作后完成一次实际锁屏验证，解锁并确认。确认后按默认范围开启自动锁屏。</p>
-<p>配对时将 Mac 和 iPhone 接入同一局域网，允许本地网络访问，在手机上扫描 Mac 的配对码，并在 Mac 上允许配对。手表没收到提醒时，检查 iPhone 通知权限、手表连接和专注模式，再用「腕上提醒」中的测试通知验证。反馈请提供版本、系统、发生时间及当时是否还在桌边。联系 <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>。</p></section><section id="zh-Hant" lang="zh-Hant"><h1>使用支援</h1>
-<p>在 Mac 開啟 DeskLock，允許藍牙存取並選取 Apple Watch。到「鎖定」授予輔助使用權限，儲存工作並驗證一次實際鎖定，然後解鎖並確認。確認後會以預設範圍啟用自動鎖定。</p>
-<p>將 iPhone 和 Mac 連上同一個區域網路，允許區域網路存取，用 iPhone 掃描 Mac 顯示的配對碼，再於 Mac 允許配對。若手錶未收到提醒，請檢查 iPhone 通知權限、手錶連線與專注模式，再用腕上提醒的測試通知確認。回報時請附上 App 和系統版本、發生時間，以及當時是否在電腦旁。聯絡方式為 <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>。</p></section><section id="en" lang="en"><h1>Support</h1>
-<p>Open DeskLock on the Mac, allow Bluetooth access and select your Apple Watch. In Locking, grant Accessibility access, save your work and verify that the Mac locks. Unlock the Mac and confirm the result to enable auto-lock with the default range.</p>
-<p>For pairing, connect the Mac and iPhone to the same local network and grant local network access. Scan the pairing code on the iPhone and approve the request on the Mac. If a wrist alert is missing, check iPhone notification permission, watch connectivity and Focus settings, then send a wrist test alert. Include app and OS versions, the approximate time and whether you were still at the desk when you contact <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>.</p></section><section id="ja" lang="ja"><h1>サポート</h1>
-<p>MacでDeskLockを開き、Bluetoothの利用を許可してApple Watchを選択します。ロック設定でアクセシビリティの利用を許可し、作業を保存してから画面ロックを確認してください。Macのロックを解除して結果を確認すると、標準の範囲で自動ロックが有効になります。</p>
-<p>ペアリングするには、MacとiPhoneを同じローカルネットワークに接続してアクセスを許可し、iPhoneでQRコードを読み取り、Macでリクエストを承認します。腕に通知が届かない場合は、iPhoneの通知の許可、Apple Watchの接続、集中モードを確認し、テスト通知を送信してください。問い合わせには、アプリとOSのバージョン、発生時刻、Macのそばにいたかどうかを添えて <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a> にご連絡ください。</p></section><section id="de" lang="de"><h1>Hilfe</h1>
-<p>Öffne DeskLock auf dem Mac, gestatte den Bluetooth-Zugriff und wähle deine Apple Watch aus. Erlaube unter „Bedienungshilfen“ den Zugriff, speichere deine Arbeit und prüfe, ob der Mac tatsächlich gesperrt wird. Entsperre ihn und bestätige das Ergebnis, um die automatische Sperre mit der Standardreichweite zu aktivieren.</p>
-<p>Verbinde für die Kopplung Mac und iPhone mit demselben lokalen Netzwerk und erlaube den lokalen Netzwerkzugriff. Scanne den Code mit dem iPhone und bestätige die Anfrage auf dem Mac. Fehlt eine Mitteilung auf der Apple Watch, prüfe die Mitteilungsberechtigung, die Verbindung und den Fokusmodus und sende eine Testmitteilung. Nenne bei Fragen an <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a> die App- und Systemversionen, die ungefähre Uhrzeit und ob du noch am Schreibtisch warst.</p></section><section id="ko" lang="ko"><h1>지원</h1>
-<p>Mac에서 DeskLock을 열고 Bluetooth 사용을 허용한 다음 Apple Watch를 선택하세요. 손쉬운 사용 권한을 허용하고 작업을 저장한 뒤 화면이 실제로 잠기는지 확인하세요. Mac의 잠금을 해제하고 확인하면 기본 범위로 자동 잠금이 켜집니다.</p>
-<p>페어링하려면 iPhone과 Mac을 같은 로컬 네트워크에 연결하고 접근을 허용하세요. iPhone에서 코드를 스캔하고 Mac에서 요청을 승인하세요. Apple Watch에 알림이 표시되지 않으면 iPhone 알림 권한과 시계 연결, 집중 모드를 확인한 뒤 테스트 알림을 보내 보세요. 문의할 때는 앱과 OS 버전, 발생 시각, 당시 Mac 근처에 있었는지를 적어 <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>로 보내 주세요.</p></section><section id="es-ES" lang="es-ES"><h1>Ayuda</h1>
-<p>Abre DeskLock en el Mac, permite el acceso a Bluetooth y selecciona tu Apple Watch. Concede el permiso de Accesibilidad, guarda el trabajo y comprueba que el Mac se bloquea. Desbloquéalo y confirma el resultado para activar el bloqueo automático con el alcance predeterminado.</p>
-<p>Conecta el iPhone y el Mac a la misma red local y permite el acceso. Escanea el código con el iPhone y aprueba la solicitud en el Mac. Si el reloj no muestra el aviso, revisa los permisos de notificaciones del iPhone, la conexión del reloj y el modo de concentración. Envía un aviso de prueba. Si escribes a <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>, indica las versiones de la aplicación y del sistema, la hora aproximada y si seguías junto al Mac.</p></section><section id="es-MX" lang="es-MX"><h1>Soporte</h1>
-<p>Abre DeskLock en tu Mac, permite el acceso a Bluetooth y selecciona tu Apple Watch. Otorga el permiso de Accesibilidad, guarda tu trabajo y confirma que la Mac se bloquea. Desbloquéala y confirma el resultado para activar el bloqueo automático con el alcance predeterminado.</p>
-<p>Para vincular los dispositivos, conecta el iPhone y tu Mac a la misma red local y permite el acceso. Escanea el código con el iPhone y acepta la solicitud en tu Mac. Si no ves la notificación en el reloj, revisa los permisos del iPhone, la conexión del reloj y el modo de concentración. Después envía una notificación de prueba. Si necesitas ayuda, escribe a <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a> e incluye las versiones de la app y del sistema, la hora aproximada y si todavía estabas junto a la Mac.</p></section></main>
+<a href="#es-MX" lang="es-MX">Español (México)</a></nav></header>
+<main>
+<section class="locale" id="zh-Hans" lang="zh-Hans">
+<div class="hero">
+  <div><h1>离开电脑时，让 Mac 自动锁屏</h1><p>接杯水、去洗手间、取打印件，或被同事叫去白板旁。离开也许只有几分钟，屏幕上的聊天、邮件和工作文件仍可能被看到。DeskLock 用你带着的 Apple Watch 或已配对的 iPhone 检测离开，由 Mac 执行系统锁屏。</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">免费下载 Mac 版</a>
+    <p class="availability">macOS 14 或更新版本<br>iPhone 与 Apple Watch 伴侣正在准备上架。</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Mac 菜单栏显示离开后的锁屏倒计时" loading="lazy"><figcaption>Mac 菜单栏显示离开后的锁屏倒计时</figcaption></figure>
+</div>
+<div class="area">
+  <h2>这些时候用得上</h2><div class="scene-grid"><article><h3>去接水</h3><p>想着马上回来，手机还在桌上，忘了锁屏。戴着 Apple Watch 走开，DeskLock 检测到离开后会请求 Mac 锁屏。</p></article><article><h3>去洗手间</h3><p>几分钟不在座位，聊天窗口和邮件仍可能开着。把手机留在桌上，戴表离开即可参与自动检测。</p></article><article><h3>去打印机取件</h3><p>半路遇到同事聊了几句，原本只离开一下变成几分钟。在 iPhone 的「我的 Mac」里看最近的锁屏记录。</p></article><article><h3>被同事叫去白板旁</h3><p>临时讨论来不及收拾桌面。设置好的 Apple Watch 或 iPhone 被检测到离开时，DeskLock 可以自动锁屏。</p></article></div>
+  <div class="split meeting"><div><h3>去会议室开会</h3><p>电脑留在座位，戴表去开会，交给自动锁屏。若同一台 Mac 正在投屏，可从菜单栏暂停 15 分钟、30 分钟、1 小时或 24 小时，也可暂停到手动恢复。定时到期会自动恢复。</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="演示前从 Mac 菜单栏选择暂停时长" loading="lazy"><figcaption>演示前从 Mac 菜单栏选择暂停时长</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>忘记锁屏时，手机和手表能补上</h2><p>走开后发现屏幕还亮着？完成配对并开启自动锁屏后，可以在 iPhone 的「我的 Mac」或 Apple Watch 的 DeskLock 中点「锁定 Mac」。这一操作需要 iPhone 能通过本地网络连接 Mac，手表命令通过配对的 iPhone 转发。以锁屏记录中的「Mac 已锁屏」确认结果。通知显示在手机还是手表，由设备连接和系统通知设置决定。</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="在 iPhone 的「我的 Mac」点「锁定 Mac」，下方可查看锁屏记录" loading="lazy"><figcaption>在 iPhone 的「我的 Mac」点「锁定 Mac」，下方可查看锁屏记录</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="在 Apple Watch 上点「锁定 Mac」" loading="lazy"><figcaption>在 Apple Watch 上点「锁定 Mac」</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>安装与使用帮助</h2><p>在 Mac 打开 DeskLock，允许蓝牙并选择你的 Apple Watch。到「锁屏」允许辅助功能权限，保存工作后完成一次实际锁屏验证，解锁并确认。确认后按默认范围开启自动锁屏。</p>
+<p>配对时将 Mac 和 iPhone 接入同一局域网，允许本地网络访问，在手机上扫描 Mac 的配对码，并在 Mac 上允许配对。手表没收到提醒时，检查 iPhone 通知权限、手表连接和专注模式，再用「腕上提醒」中的测试通知验证。反馈请提供版本、系统、发生时间及当时是否还在桌边。联系 <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>。</p><p class="note">截图使用示例数据。蓝牙信号会随环境和佩戴姿势变化，可在 Mac 调整锁屏范围。部分截图采用英文界面。</p>
+  <a href="./privacy.html#zh-Hans">隐私政策</a></div><figure class="shot phone"><img src="./images/iphone-pair-zh-Hans.webp" width="590" height="1282" alt="iPhone 扫码配对引导" loading="lazy"><figcaption>iPhone 扫码配对引导</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="zh-Hant" lang="zh-Hant" hidden>
+<div class="hero">
+  <div><h1>離開電腦時，讓 Mac 自動鎖定</h1><p>倒杯水、上洗手間、拿列印文件，或被同事叫去白板旁。就算只離開幾分鐘，螢幕上的訊息、郵件和工作檔案仍可能被看見。DeskLock 用你戴著的 Apple Watch 或已配對的 iPhone 偵測離開，並由 Mac 執行系統鎖定。</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">免費下載 Mac 版</a>
+    <p class="availability">macOS 14 或更新版本<br>iPhone 與 Apple Watch 伴侶正在準備上架。</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Mac 選單列顯示離開後的鎖定倒數" loading="lazy"><figcaption>Mac 選單列顯示離開後的鎖定倒數</figcaption></figure>
+</div>
+<div class="area">
+  <h2>這些時候用得上</h2><div class="scene-grid"><article><h3>去倒水</h3><p>想著很快會回來，手機還在桌上，卻忘了鎖定。戴著 Apple Watch 走開，DeskLock 偵測到離開後會請 Mac 鎖定。</p></article><article><h3>去洗手間</h3><p>離開座位幾分鐘，聊天與郵件視窗仍可能開著。手機可以留在桌上，戴著手錶離開也能觸發偵測。</p></article><article><h3>去印表機拿文件</h3><p>在路上遇到同事聊了幾句，原本只離開一下變成幾分鐘。可在 iPhone 的「我的 Mac」查看最近的鎖定記錄。</p></article><article><h3>被同事叫去白板旁</h3><p>突然要討論，來不及收拾桌面。設定好的 Apple Watch 或 iPhone 被偵測到離開時，DeskLock 可以自動鎖定。</p></article></div>
+  <div class="split meeting"><div><h3>去會議室開會</h3><p>Mac 留在座位，戴錶去開會，交給自動鎖定。若同一台 Mac 正在投影，可從選單列暫停 15 分鐘、30 分鐘、1 小時或 24 小時，也可以暫停到手動恢復。定時結束後會自動恢復。</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="投影前從 Mac 選單列選擇暫停時間" loading="lazy"><figcaption>投影前從 Mac 選單列選擇暫停時間</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>忘記鎖定時，用手機或手錶補上</h2><p>走開後發現螢幕還亮著？完成配對並開啟自動鎖定後，可在 iPhone 的「我的 Mac」或 Apple Watch 的 DeskLock 點「鎖定 Mac」。iPhone 必須能透過區域網路連上 Mac，手錶指令會經由配對的 iPhone 轉送。在鎖定記錄看到「Mac 已鎖定」就能確認結果。通知出現在手機或手錶，取決於裝置連線和系統通知設定。</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="在 iPhone 的「我的 Mac」點「鎖定 Mac」，下方可查看鎖定記錄" loading="lazy"><figcaption>在 iPhone 的「我的 Mac」點「鎖定 Mac」，下方可查看鎖定記錄</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="在 Apple Watch 點「鎖定 Mac」" loading="lazy"><figcaption>在 Apple Watch 點「鎖定 Mac」</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>安裝與使用支援</h2><p>在 Mac 開啟 DeskLock，允許藍牙存取並選取 Apple Watch。到「鎖定」授予輔助使用權限，儲存工作並驗證一次實際鎖定，然後解鎖並確認。確認後會以預設範圍啟用自動鎖定。</p>
+<p>將 iPhone 和 Mac 連上同一個區域網路，允許區域網路存取，用 iPhone 掃描 Mac 顯示的配對碼，再於 Mac 允許配對。若手錶未收到提醒，請檢查 iPhone 通知權限、手錶連線與專注模式，再用腕上提醒的測試通知確認。回報時請附上 App 和系統版本、發生時間，以及當時是否在電腦旁。聯絡方式為 <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>。</p><p class="note">截圖使用範例資料。藍牙訊號會受環境與佩戴姿勢影響，可在 Mac 調整鎖定範圍。部分截圖採用英文介面。</p>
+  <a href="./privacy.html#zh-Hant">隱私權政策</a></div><figure class="shot phone"><img src="./images/iphone-pair-zh-Hant.webp" width="590" height="1282" alt="iPhone 掃碼配對引導" loading="lazy"><figcaption>iPhone 掃碼配對引導</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="en" lang="en" hidden>
+<div class="hero">
+  <div><h1>Lock your Mac when you walk away</h1><p>A water refill, a restroom break, or a quick question at the whiteboard can leave email and work on display. DeskLock uses your Apple Watch or paired iPhone to detect when you step away, then asks macOS to lock the screen.</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">Free download for Mac</a>
+    <p class="availability">macOS 14 or later<br>The iPhone and Apple Watch companion apps are being prepared for the App Store.</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Mac menu bar countdown after departure is detected" loading="lazy"><figcaption>Mac menu bar countdown after departure is detected</figcaption></figure>
+</div>
+<div class="area">
+  <h2>Built for everyday interruptions</h2><div class="scene-grid"><article><h3>Refill your water</h3><p>You expect to be right back, and your phone stays on the desk. Wear your Apple Watch and let DeskLock lock your Mac when it detects you’ve walked away.</p></article><article><h3>Take a restroom break</h3><p>Even a few minutes away can leave a chat or email visible. Leave your iPhone on the desk and let your watch handle departure detection.</p></article><article><h3>Pick up a printout</h3><p>A quick trip to the printer can turn into a conversation. Check the latest lock in My Mac on your iPhone.</p></article><article><h3>Answer a question at the whiteboard</h3><p>A coworker calls you over before you’ve had time to lock up. DeskLock can lock the Mac when it detects the configured watch or phone moving away.</p></article></div>
+  <div class="split meeting"><div><h3>Go to a meeting or present</h3><p>When you go to a meeting room, leave auto-lock on. When presenting from the same Mac, pause auto-lock from the menu bar for 15 minutes, 30 minutes, 1 hour, 24 hours, or until you resume it. Timed pauses end automatically.</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="Choose a pause duration from the Mac menu bar before sharing your screen" loading="lazy"><figcaption>Choose a pause duration from the Mac menu bar before sharing your screen</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>Still unlocked? Lock it from your phone or watch</h2><p>If you step away and find your Mac still unlocked, open My Mac on iPhone or DeskLock on Apple Watch and tap Lock Mac. First pair the devices and enable auto-lock. The iPhone needs to reach the Mac on the local network, and watch commands relay through the paired iPhone. Look for Mac locked in Lock History to confirm the result. Device connectivity and system settings determine where notifications appear.</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="Tap Lock Mac in My Mac on iPhone and check the latest lock below" loading="lazy"><figcaption>Tap Lock Mac in My Mac on iPhone and check the latest lock below</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="Tap Lock Mac in DeskLock on Apple Watch" loading="lazy"><figcaption>Tap Lock Mac in DeskLock on Apple Watch</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>Setup and support</h2><p>Open DeskLock on the Mac, allow Bluetooth access and select your Apple Watch. In Locking, grant Accessibility access, save your work and verify that the Mac locks. Unlock the Mac and confirm the result to enable auto-lock with the default range.</p>
+<p>For pairing, connect the Mac and iPhone to the same local network and grant local network access. Scan the pairing code on the iPhone and approve the request on the Mac. If a wrist alert is missing, check iPhone notification permission, watch connectivity and Focus settings, then send a wrist test alert. Include app and OS versions, the approximate time and whether you were still at the desk when you contact <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>.</p><p class="note">Screenshots use example data. Bluetooth readings vary with the room and how you wear the watch. You can adjust the range on your Mac. Some screenshots show the English or Chinese interface.</p>
+  <a href="./privacy.html#en">Privacy policy</a></div><figure class="shot phone"><img src="./images/iphone-pair-en.webp" width="590" height="1283" alt="Scan a pairing code in the iPhone app" loading="lazy"><figcaption>Scan a pairing code in the iPhone app</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="ja" lang="ja" hidden>
+<div class="hero">
+  <div><h1>席を離れたら、Macを自動でロック</h1><p>水を取りに行くとき、トイレに立つとき、同僚にホワイトボードへ呼ばれたとき。数分でも、メールや作業中の画面は見えるままです。DeskLockはApple Watchまたはペアリング済みのiPhoneで離席を検知し、macOSの画面をロックします。</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">Mac版を無料ダウンロード</a>
+    <p class="availability">macOS 14以降<br>iPhoneとApple WatchのアプリはApp Storeでの公開準備中です。</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Macのメニューバーに表示されるロックまでのカウントダウン" loading="lazy"><figcaption>Macのメニューバーに表示されるロックまでのカウントダウン</figcaption></figure>
+</div>
+<div class="area">
+  <h2>こんな場面に</h2><div class="scene-grid"><article><h3>水を取りに行く</h3><p>すぐ戻るつもりでiPhoneを机に置いたままでも、Apple Watchを着けて離れると、DeskLockが離席を検知してMacのロックを実行します。</p></article><article><h3>トイレに立つ</h3><p>数分の離席でもチャットやメールが見えることがあります。iPhoneを置いたまま、Apple Watchで離席を検知できます。</p></article><article><h3>印刷物を取りに行く</h3><p>プリンターへの往復が立ち話で長引くことも。iPhoneの「マイMac」で直近のロック履歴を確認できます。</p></article><article><h3>同僚との立ち話</h3><p>急にホワイトボードへ呼ばれたら、設定済みのApple WatchやiPhoneが離れたことを検知してMacをロックできます。</p></article></div>
+  <div class="split meeting"><div><h3>会議に行く・画面を共有する</h3><p>会議室に移動するときは自動ロックを有効にしたままに。同じMacで発表するときは、メニューバーで15分、30分、1時間、24時間、または手動再開まで一時停止できます。時間を指定すると自動で再開します。</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="画面共有前にMacのメニューバーで一時停止時間を選択" loading="lazy"><figcaption>画面共有前にMacのメニューバーで一時停止時間を選択</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>ロックされていなければ、iPhoneや腕元から</h2><p>席を離れてからMacがロックされていないと気づいたら、iPhoneの「マイMac」またはApple WatchのDeskLockで「Macをロック」をタップします。事前にペアリングして自動ロックを有効にしてください。iPhoneはローカルネットワークでMacに接続できる必要があり、Apple Watchの操作はペアリング済みのiPhoneを経由します。結果はロック履歴で確認できます。通知の表示先は接続状況とシステム設定によって変わります。</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="iPhoneの「マイMac」でロック操作と履歴を確認" loading="lazy"><figcaption>iPhoneの「マイMac」でロック操作と履歴を確認</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="Apple WatchのDeskLockからMacをロック" loading="lazy"><figcaption>Apple WatchのDeskLockからMacをロック</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>設定とサポート</h2><p>MacでDeskLockを開き、Bluetoothの利用を許可してApple Watchを選択します。ロック設定でアクセシビリティの利用を許可し、作業を保存してから画面ロックを確認してください。Macのロックを解除して結果を確認すると、標準の範囲で自動ロックが有効になります。</p>
+<p>ペアリングするには、MacとiPhoneを同じローカルネットワークに接続してアクセスを許可し、iPhoneでQRコードを読み取り、Macでリクエストを承認します。腕に通知が届かない場合は、iPhoneの通知の許可、Apple Watchの接続、集中モードを確認し、テスト通知を送信してください。問い合わせには、アプリとOSのバージョン、発生時刻、Macのそばにいたかどうかを添えて <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a> にご連絡ください。</p><p class="note">画面はサンプルデータです。Bluetoothの信号は周囲の環境やApple Watchの着け方で変化します。範囲はMacで調整できます。一部の画面は英語または中国語です。</p>
+  <a href="./privacy.html#ja">プライバシーポリシー</a></div><figure class="shot phone"><img src="./images/iphone-pair-ja.webp" width="590" height="1282" alt="iPhoneでペアリングコードを読み取る" loading="lazy"><figcaption>iPhoneでペアリングコードを読み取る</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="de" lang="de" hidden>
+<div class="hero">
+  <div><h1>Sperre deinen Mac, wenn du weggehst</h1><p>Kurz Wasser holen, zur Toilette gehen oder eine Frage am Whiteboard beantworten – dabei können E-Mails und Arbeitsdokumente sichtbar bleiben. DeskLock erkennt über deine Apple Watch oder ein gekoppeltes iPhone, wenn du weggehst, und veranlasst macOS, den Bildschirm zu sperren.</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">Kostenlos für Mac laden</a>
+    <p class="availability">macOS 14 oder neuer<br>Die Apps für iPhone und Apple Watch werden für den App Store vorbereitet.</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Countdown bis zur Sperre in der Mac-Menüleiste" loading="lazy"><figcaption>Countdown bis zur Sperre in der Mac-Menüleiste</figcaption></figure>
+</div>
+<div class="area">
+  <h2>Für kurze Unterbrechungen im Büro</h2><div class="scene-grid"><article><h3>Wasser holen</h3><p>Du bist gleich wieder da, und das iPhone bleibt auf dem Tisch. Mit deiner Apple Watch kann DeskLock erkennen, dass du weggehst, und den Mac sperren.</p></article><article><h3>Kurz zur Toilette</h3><p>Auch in wenigen Minuten können Chats und E-Mails sichtbar bleiben. Das iPhone kann am Platz bleiben, während die Watch zur Erkennung dient.</p></article><article><h3>Einen Ausdruck holen</h3><p>Am Drucker ergibt sich schnell ein Gespräch. Unter „Mein Mac“ kannst du auf dem iPhone die letzte Sperre nachsehen.</p></article><article><h3>Kurz ans Whiteboard</h3><p>Ein Kollege ruft dich rüber, bevor du den Bildschirm sperren konntest. DeskLock kann den Mac sperren, sobald die eingerichtete Watch oder das iPhone sich entfernt.</p></article></div>
+  <div class="split meeting"><div><h3>Zur Besprechung gehen oder präsentieren</h3><p>Beim Gang in den Besprechungsraum bleibt die automatische Sperre aktiv. Wenn du am selben Mac präsentierst, kannst du sie in der Menüleiste für 15 oder 30 Minuten, 1 oder 24 Stunden oder bis zur manuellen Fortsetzung pausieren. Ein Timer setzt sie automatisch fort.</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="Vor dem Bildschirmteilen eine Pause in der Mac-Menüleiste auswählen" loading="lazy"><figcaption>Vor dem Bildschirmteilen eine Pause in der Mac-Menüleiste auswählen</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>Noch nicht gesperrt? Sperre den Mac per iPhone oder Watch</h2><p>Ist der Mac nach dem Weggehen noch entsperrt, tippe auf dem iPhone unter „Mein Mac“ oder in DeskLock auf der Apple Watch auf „Mac sperren“. Kopple die Geräte vorher und aktiviere die automatische Sperre. Das iPhone muss den Mac im lokalen Netzwerk erreichen. Befehle der Watch laufen über das gekoppelte iPhone. Der Sperrverlauf zeigt das Ergebnis. Wo Mitteilungen erscheinen, hängt von der Geräteverbindung und den Systemeinstellungen ab.</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="Den Mac über das iPhone sperren und den Verlauf prüfen" loading="lazy"><figcaption>Den Mac über das iPhone sperren und den Verlauf prüfen</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="Den Mac über DeskLock auf der Apple Watch sperren" loading="lazy"><figcaption>Den Mac über DeskLock auf der Apple Watch sperren</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>Einrichtung und Hilfe</h2><p>Öffne DeskLock auf dem Mac, gestatte den Bluetooth-Zugriff und wähle deine Apple Watch aus. Erlaube unter „Bedienungshilfen“ den Zugriff, speichere deine Arbeit und prüfe, ob der Mac tatsächlich gesperrt wird. Entsperre ihn und bestätige das Ergebnis, um die automatische Sperre mit der Standardreichweite zu aktivieren.</p>
+<p>Verbinde für die Kopplung Mac und iPhone mit demselben lokalen Netzwerk und erlaube den lokalen Netzwerkzugriff. Scanne den Code mit dem iPhone und bestätige die Anfrage auf dem Mac. Fehlt eine Mitteilung auf der Apple Watch, prüfe die Mitteilungsberechtigung, die Verbindung und den Fokusmodus und sende eine Testmitteilung. Nenne bei Fragen an <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a> die App- und Systemversionen, die ungefähre Uhrzeit und ob du noch am Schreibtisch warst.</p><p class="note">Die Abbildungen verwenden Beispieldaten. Die Bluetooth-Signalstärke hängt vom Raum und der Position der Watch ab. Die Reichweite lässt sich am Mac einstellen. Einige Abbildungen zeigen die englische oder chinesische Oberfläche.</p>
+  <a href="./privacy.html#de">Datenschutz</a></div><figure class="shot phone"><img src="./images/iphone-pair-de.webp" width="590" height="1282" alt="Kopplungscode auf dem iPhone scannen" loading="lazy"><figcaption>Kopplungscode auf dem iPhone scannen</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="ko" lang="ko" hidden>
+<div class="hero">
+  <div><h1>자리를 비우면 Mac을 자동으로 잠급니다</h1><p>물을 뜨러 가거나, 화장실에 가거나, 동료가 화이트보드 앞으로 부를 때. 몇 분만 자리를 비워도 메일이나 업무 문서가 화면에 그대로 보일 수 있습니다. DeskLock은 Apple Watch 또는 페어링한 iPhone의 신호로 자리 비움을 감지하면 macOS에 화면 잠금을 요청합니다.</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">Mac용 무료 다운로드</a>
+    <p class="availability">macOS 14 이상<br>iPhone 및 Apple Watch 앱은 App Store 출시를 준비 중입니다.</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Mac 메뉴 막대의 잠금 카운트다운" loading="lazy"><figcaption>Mac 메뉴 막대의 잠금 카운트다운</figcaption></figure>
+</div>
+<div class="area">
+  <h2>이럴 때 유용합니다</h2><div class="scene-grid"><article><h3>물 뜨러 가기</h3><p>곧 돌아올 생각에 iPhone을 책상 위에 둔 채 잠그는 것을 잊기 쉽습니다. Apple Watch를 차고 나가면 DeskLock이 자리 비움을 감지해 Mac을 잠글 수 있습니다.</p></article><article><h3>화장실 다녀오기</h3><p>몇 분 사이에도 채팅이나 메일이 보일 수 있습니다. iPhone은 책상에 두고 Apple Watch로 자리 비움을 감지할 수 있습니다.</p></article><article><h3>인쇄물 가지러 가기</h3><p>프린터에 잠시 가는 길에 대화가 길어질 수 있습니다. iPhone의 ‘나의 Mac’에서 최근 잠금 기록을 확인하세요.</p></article><article><h3>동료와 화이트보드 앞에서 이야기하기</h3><p>갑자기 불려가 화면을 잠글 여유가 없을 때, 설정한 Apple Watch나 iPhone이 멀어지면 DeskLock이 Mac을 잠글 수 있습니다.</p></article></div>
+  <div class="split meeting"><div><h3>회의에 가거나 화면 공유하기</h3><p>회의실로 이동할 때는 자동 잠금을 켜 두세요. 같은 Mac에서 발표할 때는 메뉴 막대에서 15분, 30분, 1시간, 24시간 또는 직접 재개할 때까지 일시 정지할 수 있습니다. 시간을 정하면 자동으로 재개됩니다.</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="화면 공유 전에 Mac 메뉴 막대에서 일시 정지 시간 선택" loading="lazy"><figcaption>화면 공유 전에 Mac 메뉴 막대에서 일시 정지 시간 선택</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>잠기지 않았다면 iPhone이나 Apple Watch에서 잠그기</h2><p>자리를 비운 뒤 Mac이 아직 잠기지 않았으면 iPhone의 ‘나의 Mac’이나 Apple Watch용 DeskLock에서 ‘Mac 잠그기’를 누르세요. 먼저 기기를 페어링하고 자동 잠금을 켜야 합니다. iPhone은 로컬 네트워크에서 Mac에 연결할 수 있어야 하며 Apple Watch의 명령은 페어링한 iPhone을 거칩니다. 결과는 잠금 기록에서 확인하세요. 알림이 표시되는 기기는 연결 상태와 시스템 설정에 따라 달라집니다.</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="iPhone에서 Mac 잠그기와 최근 잠금 기록 확인" loading="lazy"><figcaption>iPhone에서 Mac 잠그기와 최근 잠금 기록 확인</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="Apple Watch의 DeskLock에서 Mac 잠그기" loading="lazy"><figcaption>Apple Watch의 DeskLock에서 Mac 잠그기</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>설치 및 지원</h2><p>Mac에서 DeskLock을 열고 Bluetooth 사용을 허용한 다음 Apple Watch를 선택하세요. 손쉬운 사용 권한을 허용하고 작업을 저장한 뒤 화면이 실제로 잠기는지 확인하세요. Mac의 잠금을 해제하고 확인하면 기본 범위로 자동 잠금이 켜집니다.</p>
+<p>페어링하려면 iPhone과 Mac을 같은 로컬 네트워크에 연결하고 접근을 허용하세요. iPhone에서 코드를 스캔하고 Mac에서 요청을 승인하세요. Apple Watch에 알림이 표시되지 않으면 iPhone 알림 권한과 시계 연결, 집중 모드를 확인한 뒤 테스트 알림을 보내 보세요. 문의할 때는 앱과 OS 버전, 발생 시각, 당시 Mac 근처에 있었는지를 적어 <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>로 보내 주세요.</p><p class="note">이미지에는 예시 데이터가 사용되었습니다. Bluetooth 신호는 주변 환경과 시계 위치에 따라 달라질 수 있으며 Mac에서 범위를 조정할 수 있습니다. 일부 화면은 영어 또는 중국어입니다.</p>
+  <a href="./privacy.html#ko">개인정보 처리방침</a></div><figure class="shot phone"><img src="./images/iphone-pair-ko.webp" width="590" height="1282" alt="iPhone에서 페어링 코드 스캔" loading="lazy"><figcaption>iPhone에서 페어링 코드 스캔</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="es-ES" lang="es-ES" hidden>
+<div class="hero">
+  <div><h1>Bloquea tu Mac al alejarte</h1><p>Cuando vas a por agua, al baño o a hablar con alguien en la pizarra, puedes dejar correos y documentos a la vista. DeskLock usa tu Apple Watch o iPhone enlazado para detectar que te alejas y pedir a macOS que bloquee la pantalla.</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">Descarga gratis para Mac</a>
+    <p class="availability">macOS 14 o posterior<br>Las apps para iPhone y Apple Watch se están preparando para la App Store.</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Cuenta atrás para el bloqueo en la barra de menús del Mac" loading="lazy"><figcaption>Cuenta atrás para el bloqueo en la barra de menús del Mac</figcaption></figure>
+</div>
+<div class="area">
+  <h2>Para las interrupciones del día a día</h2><div class="scene-grid"><article><h3>Ir a por agua</h3><p>Crees que volverás enseguida y dejas el iPhone en la mesa. Si llevas el Apple Watch, DeskLock puede detectar que te alejas y bloquear el Mac.</p></article><article><h3>Ir al baño</h3><p>Bastan unos minutos para que una conversación o un correo quede a la vista. Puedes dejar el iPhone en la mesa y usar el reloj para detectar que te has alejado.</p></article><article><h3>Recoger algo de la impresora</h3><p>Un momento en la impresora puede convertirse en una charla. Consulta el último bloqueo desde «Mi Mac» en el iPhone.</p></article><article><h3>Acercarte a la pizarra</h3><p>Un compañero te llama y no te da tiempo a bloquear la pantalla. DeskLock puede bloquear el Mac al detectar que se aleja el reloj o el iPhone configurado.</p></article></div>
+  <div class="split meeting"><div><h3>Ir a una reunión o presentar</h3><p>Cuando te vayas a la sala de reuniones, deja activo el bloqueo automático. Si vas a presentar con ese mismo Mac, puedes pausarlo desde la barra de menús durante 15 o 30 minutos, 1 o 24 horas, o hasta reanudarlo manualmente. Las pausas con tiempo se reanudan solas.</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="Elige cuánto pausar antes de compartir pantalla" loading="lazy"><figcaption>Elige cuánto pausar antes de compartir pantalla</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>¿Sigue desbloqueado? Bloquéalo desde el iPhone o el reloj</h2><p>Si te alejas y el Mac sigue desbloqueado, pulsa «Bloquear el Mac» en «Mi Mac» en el iPhone o en DeskLock para el Apple Watch. Antes debes enlazar los dispositivos y activar el bloqueo automático. El iPhone debe poder comunicarse con el Mac en la red local. Las órdenes del reloj pasan por el iPhone enlazado. Consulta el historial de bloqueos para confirmar el resultado. La conexión y los ajustes del sistema determinan dónde aparece el aviso.</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="Bloquea el Mac desde el iPhone y consulta el último bloqueo debajo" loading="lazy"><figcaption>Bloquea el Mac desde el iPhone y consulta el último bloqueo debajo</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="Bloquea el Mac desde DeskLock en el Apple Watch" loading="lazy"><figcaption>Bloquea el Mac desde DeskLock en el Apple Watch</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>Configuración y ayuda</h2><p>Abre DeskLock en el Mac, permite el acceso a Bluetooth y selecciona tu Apple Watch. Concede el permiso de Accesibilidad, guarda el trabajo y comprueba que el Mac se bloquea. Desbloquéalo y confirma el resultado para activar el bloqueo automático con el alcance predeterminado.</p>
+<p>Conecta el iPhone y el Mac a la misma red local y permite el acceso. Escanea el código con el iPhone y aprueba la solicitud en el Mac. Si el reloj no muestra el aviso, revisa los permisos de notificaciones del iPhone, la conexión del reloj y el modo de concentración. Envía un aviso de prueba. Si escribes a <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a>, indica las versiones de la aplicación y del sistema, la hora aproximada y si seguías junto al Mac.</p><p class="note">Las capturas muestran datos de ejemplo. La señal Bluetooth varía con el entorno y la posición del reloj. Puedes ajustar el alcance desde el Mac. Algunas capturas muestran la interfaz en inglés o chino.</p>
+  <a href="./privacy.html#es-ES">Política de privacidad</a></div><figure class="shot phone"><img src="./images/iphone-pair-es-ES.webp" width="590" height="1282" alt="Escanea el código de enlace con el iPhone" loading="lazy"><figcaption>Escanea el código de enlace con el iPhone</figcaption></figure>
+</div>
+</section>
+<section class="locale" id="es-MX" lang="es-MX" hidden>
+<div class="hero">
+  <div><h1>Bloquea tu Mac cuando te alejes</h1><p>Ir por agua, ir al baño o atender una pregunta en el pizarrón puede dejar correos y documentos a la vista. DeskLock usa tu Apple Watch o tu iPhone vinculado para detectar que te alejaste y pedirle a macOS que bloquee la pantalla.</p>
+    <a class="download" href="./DeskLock-1.0.0-35-macOS-notarized.zip">Descarga gratis para Mac</a>
+    <p class="availability">macOS 14 o posterior<br>Las apps para iPhone y Apple Watch se están preparando para la App Store.</p>
+  </div>
+  <figure class="shot mac"><img src="./images/mac-countdown.webp" width="720" height="561" alt="Cuenta regresiva de bloqueo en la barra de menús de la Mac" loading="lazy"><figcaption>Cuenta regresiva de bloqueo en la barra de menús de la Mac</figcaption></figure>
+</div>
+<div class="area">
+  <h2>Para las interrupciones del día a día</h2><div class="scene-grid"><article><h3>Ir por agua</h3><p>Piensas volver rápido y dejas el iPhone en el escritorio. Si llevas puesto el Apple Watch, DeskLock puede detectar que te alejas y bloquear tu Mac.</p></article><article><h3>Ir al baño</h3><p>Aunque solo te ausentes unos minutos, los mensajes y correos pueden quedar a la vista. Deja el iPhone en el escritorio y usa el reloj para detectar tu salida.</p></article><article><h3>Recoger una impresión</h3><p>Una vuelta rápida a la impresora puede terminar en una plática. Revisa el último bloqueo en «Mi Mac», desde el iPhone.</p></article><article><h3>Resolver una duda en el pizarrón</h3><p>Un compañero te llama y te levantas sin bloquear la pantalla. DeskLock puede bloquear tu Mac cuando detecta que se aleja el reloj o el iPhone que configuraste.</p></article></div>
+  <div class="split meeting"><div><h3>Ir a una junta o presentar</h3><p>Si vas a la sala de juntas, deja activado el bloqueo automático. Si vas a presentar desde esa misma Mac, puedes pausarlo en la barra de menús durante 15 o 30 minutos, 1 o 24 horas, o hasta reanudarlo tú. Las pausas programadas terminan automáticamente.</p></div><figure class="shot mac"><img src="./images/mac-pause.webp" width="720" height="561" alt="Elige cuánto pausar antes de compartir pantalla" loading="lazy"><figcaption>Elige cuánto pausar antes de compartir pantalla</figcaption></figure></div>
+</div>
+<div class="area split companion">
+  <div><h2>¿Tu Mac sigue desbloqueada? Bloquéala desde el iPhone o el reloj</h2><p>Si ya te alejaste y ves que tu Mac sigue desbloqueada, toca «Bloquear la Mac» en «Mi Mac» en el iPhone o en DeskLock para Apple Watch. Primero vincula tus dispositivos y activa el bloqueo automático. El iPhone debe poder conectarse con tu Mac por la red local. Los comandos del reloj se envían por medio del iPhone vinculado. Consulta el historial para confirmar el bloqueo. La conexión y la configuración del sistema determinan dónde aparece la notificación.</p></div><div class="controls"><figure class="shot phone"><img src="./images/iphone-lock.webp" width="730" height="1587" alt="Bloquea tu Mac desde el iPhone y revisa el último bloqueo debajo" loading="lazy"><figcaption>Bloquea tu Mac desde el iPhone y revisa el último bloqueo debajo</figcaption></figure><figure class="shot watch"><img src="./images/watch-lock.webp" width="416" height="496" alt="Bloquea tu Mac desde DeskLock en el Apple Watch" loading="lazy"><figcaption>Bloquea tu Mac desde DeskLock en el Apple Watch</figcaption></figure></div>
+</div>
+<div class="area split setup">
+  <div><h2>Configuración y soporte</h2><p>Abre DeskLock en tu Mac, permite el acceso a Bluetooth y selecciona tu Apple Watch. Otorga el permiso de Accesibilidad, guarda tu trabajo y confirma que la Mac se bloquea. Desbloquéala y confirma el resultado para activar el bloqueo automático con el alcance predeterminado.</p>
+<p>Para vincular los dispositivos, conecta el iPhone y tu Mac a la misma red local y permite el acceso. Escanea el código con el iPhone y acepta la solicitud en tu Mac. Si no ves la notificación en el reloj, revisa los permisos del iPhone, la conexión del reloj y el modo de concentración. Después envía una notificación de prueba. Si necesitas ayuda, escribe a <a href="mailto:chengfei001001@gmail.com">chengfei001001@gmail.com</a> e incluye las versiones de la app y del sistema, la hora aproximada y si todavía estabas junto a la Mac.</p><p class="note">Las capturas muestran datos de ejemplo. La señal de Bluetooth cambia según el entorno y la posición del reloj. Puedes ajustar el alcance en tu Mac. Algunas capturas muestran la interfaz en inglés o chino.</p>
+  <a href="./privacy.html#es-MX">Aviso de privacidad</a></div><figure class="shot phone"><img src="./images/iphone-pair-es-MX.webp" width="590" height="1282" alt="Escanea el código de vinculación con el iPhone" loading="lazy"><figcaption>Escanea el código de vinculación con el iPhone</figcaption></figure>
+</div>
+</section></main><footer>DeskLock · Fei Cheng（成飞）</footer>
 <script>
-const sections = [...document.querySelectorAll("main section")];
-const links = [...document.querySelectorAll("nav a")];
+const locales = [...document.querySelectorAll('.locale')];
+const languageLinks = [...document.querySelectorAll('header nav a')];
+function localeFor(preferences) {
+  for (const preference of preferences) {
+    const language = preference.toLowerCase();
+    const exact = locales.find(locale => locale.id.toLowerCase() === language);
+    if (exact) return exact;
+    if (language.startsWith('zh')) return document.getElementById(/tw|hk|mo|hant/.test(language) ? 'zh-Hant' : 'zh-Hans');
+    if (language.startsWith('es')) return document.getElementById(language === 'es' || language.endsWith('-es') ? 'es-ES' : 'es-MX');
+    const short = locales.find(locale => locale.id === language.split('-')[0]);
+    if (short) return short;
+  }
+  return locales[0];
+}
 function updateLanguage() {
-  const active = sections.find(section => "#" + section.id === location.hash) || sections[0];
-  sections.forEach(section => { section.hidden = section !== active; });
-  links.forEach(link => {
-    if (link.hash === "#" + active.id) link.setAttribute("aria-current", "true");
-    else link.removeAttribute("aria-current");
+  const active = locales.find(locale => '#' + locale.id === location.hash) || localeFor(navigator.languages || []);
+  locales.forEach(locale => { locale.hidden = locale !== active; });
+  languageLinks.forEach(link => {
+    if (link.hash === '#' + active.id) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
   });
   document.documentElement.lang = active.lang;
-  document.title = "DeskLock · " + active.querySelector("h1").textContent;
+  document.title = 'DeskLock · ' + active.querySelector('h1').textContent;
+  window.scrollTo(0, 0);
 }
-window.addEventListener("hashchange", updateLanguage);
+window.addEventListener('hashchange', updateLanguage);
 updateLanguage();
-</script>
-</body></html>
+</script></body></html>
